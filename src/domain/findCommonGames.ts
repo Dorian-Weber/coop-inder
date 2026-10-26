@@ -1,19 +1,19 @@
-import type {SteamOwnedGame} from "../adapters/steam/types";
+import type {Game} from "./game";
 
 export function findCommonGames(
-    gamesA : SteamOwnedGame[],
-    gamesB : SteamOwnedGame[],
-): SteamOwnedGame[] {
+    gamesA : Game[],
+    gamesB : Game[],
+): Game[] {
     return gamesA.filter(game =>
                 gamesB.some(other =>
-                    other.appid === game.appid))
+                    other.id === game.id))
 }
 
 export function findMissingGames(
-    gamesA : SteamOwnedGame[],
-    gamesB : SteamOwnedGame[],
-): SteamOwnedGame[] {
+    gamesA : Game[],
+    gamesB : Game[],
+): Game[] {
     return gamesA.filter(game =>
         !gamesB.some(other =>
-            other.appid === game.appid))
+            other.id === game.id))
 }

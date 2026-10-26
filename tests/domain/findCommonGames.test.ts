@@ -1,10 +1,10 @@
 import {describe, it, expect} from "vitest";
 import {findCommonGames, findMissingGames } from "../../src/domain/findCommonGames";
-import type {SteamOwnedGame} from "../../src/adapters/steam/types";
+import type {Game} from "../../src/domain/game";
 
 // fonction utilitaire pour fabriquer un faux jeu sans tout réécrire
-function makeGame(appid: number, name: string): SteamOwnedGame {
-    return {appid, name, playtime_forever: 0, img_icon_url: "", rtime_last_played: 0};
+function makeGame(id: number, name: string): Game {
+    return {id: String(id), name};
 }
 
 describe("findCommonGames", () => {
@@ -15,7 +15,7 @@ describe("findCommonGames", () => {
 
         const result = findCommonGames(gamesA, gamesB);
 
-        expect(result.map(game => game.appid)).toEqual([2]);
+        expect(result.map(game => game.id)).toEqual(["2"]);
     });
 
     it("renvoie un tableau vide s'il n'y a aucun jeu en commun", () => {
@@ -25,25 +25,25 @@ describe("findCommonGames", () => {
 
         const result = findCommonGames(gamesA, gamesB);
 
-        expect(result.map(game => game.appid)).toEqual([]);
+        expect(result.map(game => game.id)).toEqual([]);
     });
     it("renvoie un tableau vide si la liste A est vide", () => {
 
-        const gamesA: SteamOwnedGame[] = [];
+        const gamesA: Game[] = [];
         const gamesB = [makeGame(4, "Enshrouded"), makeGame(3, "Celeste")];
 
         const result = findCommonGames(gamesA, gamesB);
 
-        expect(result.map(game => game.appid)).toEqual([]);
+        expect(result.map(game => game.id)).toEqual([]);
     });
     it("renvoie un tableau vide si la liste B est vide", () => {
 
         const gamesA = [makeGame(1, "Portal"), makeGame(2, "Terraria")];
-        const gamesB: SteamOwnedGame[] = [];
+        const gamesB: Game[] = [];
 
         const result = findCommonGames(gamesA, gamesB);
 
-        expect(result.map(game => game.appid)).toEqual([]);
+        expect(result.map(game => game.id)).toEqual([]);
     });
     it("conserve l'ordre de la liste A", () => {
 
@@ -52,7 +52,7 @@ describe("findCommonGames", () => {
 
         const result = findCommonGames(gamesA, gamesB);
 
-        expect(result.map(game => game.appid)).toEqual([3, 1, 2]);
+        expect(result.map(game => game.id)).toEqual(["3", "1", "2"]);
     });
 });
 
@@ -64,16 +64,16 @@ describe("findMissingGames", () => {
 
         const result = findMissingGames(gamesA, gamesB);
 
-        expect(result.map(game => game.appid)).toEqual([1]);
+        expect(result.map(game => game.id)).toEqual(["1"]);
     });
     it("renvoie toute la liste A si B est vide", () => {
 
         const gamesA = [makeGame(1, "Portal"), makeGame(2, "Terraria")];
-        const gamesB: SteamOwnedGame[] = [];
+        const gamesB: Game[] = [];
 
         const result = findMissingGames(gamesA, gamesB);
 
-        expect(result.map(game => game.appid)).toEqual([1,2]);
+        expect(result.map(game => game.id)).toEqual(["1","2"]);
     });
     it("renvoie un tableau vide si B possède tous les jeux de A", () => {
         const gamesA = [makeGame(1, "Portal"), makeGame(2, "Terraria")];
@@ -81,6 +81,6 @@ describe("findMissingGames", () => {
 
         const result = findMissingGames(gamesA, gamesB);
 
-        expect(result.map(game => game.appid)).toEqual([]);
+        expect(result.map(game => game.id)).toEqual([]);
     });
 });
