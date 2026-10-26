@@ -1,0 +1,21 @@
+# Dépendances (se réinstallent avec npm install)
+node_modules/
+
+# Secrets : ne JAMAIS les commiter
+.env
+.env.*
+!.env.example
+.dev.vars
+
+# IDE
+.idea/
+.vscode/
+
+# Fichiers générés
+dist/
+coverage/
+.wrangler/
+
+# Logs
+*.log
+npm-debug.log*
