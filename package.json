@@ -1,15 +1,14 @@
 {
-  "name": "assistant-discord",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "steam-match",
+  "version": "0.1.0",
+  "description": "Bot Discord pour trouver à quoi jouer entre amis sur Steam",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx --env-file=.env",
+    "test": "vitest",
+    "typecheck": "tsc --noEmit"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
   "devDependencies": {
     "@types/node": "^26.6.5",
     "tsx": "^4.23.15",
