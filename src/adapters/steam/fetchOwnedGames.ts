@@ -1,8 +1,10 @@
-import type { GetOwnedGamesResponse, SteamOwnedGame } from "./types";
+import type { GetOwnedGamesResponse } from "./types";
+import type { Game } from "../../domain/game"
+import {toGame} from "./toGame";
 
 const STEAM_API_URL = "https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/";
 
-export async function fetchOwnedGames(steamId: string): Promise<SteamOwnedGame[]> {
+export async function fetchOwnedGames(steamId: string): Promise<Game[]> {
     // récupérer la clé depuis process.env, erreur claire si absente
     const steamApiKey = process.env.STEAM_API_KEY;
     if(!steamApiKey) {
@@ -25,9 +27,5 @@ export async function fetchOwnedGames(steamId: string): Promise<SteamOwnedGame[]
 
     // lire le JSON et renvoyer les jeux (tableau vide si profil privé)
     const data = (await response.json()) as GetOwnedGamesResponse;
-    return data.response.games ?? [];
+    return (data.response.games ?? []).map(toGame);
 }
-
-// tests temporaire, à supprimer ensuite
-const games = await fetchOwnedGames("76561198931810188");
-console.log(`${games.length} jeux trouvés`);
