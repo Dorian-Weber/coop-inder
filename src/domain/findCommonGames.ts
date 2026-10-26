@@ -8,3 +8,12 @@ export function findCommonGames(
                 gamesB.some(other =>
                     other.appid === game.appid))
 }
+
+export function findMissingGames(
+    gamesA : SteamOwnedGame[],
+    gamesB : SteamOwnedGame[],
+): SteamOwnedGame[] {
+    return gamesA.filter(game =>
+        !gamesB.some(other =>
+            other.appid === game.appid))
+}

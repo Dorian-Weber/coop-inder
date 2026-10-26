@@ -1,5 +1,5 @@
 import {describe, it, expect} from "vitest";
-import {findCommonGames} from "../../src/domain/findCommonGames";
+import {findCommonGames, findMissingGames } from "../../src/domain/findCommonGames";
 import type {SteamOwnedGame} from "../../src/adapters/steam/types";
 
 // fonction utilitaire pour fabriquer un faux jeu sans tout réécrire
@@ -57,7 +57,30 @@ describe("findCommonGames", () => {
 });
 
 describe("findMissingGames", () => {
-    it.todo("renvoie les jeux de A que B ne possède pas");
-    it.todo("renvoie toute la liste A si B est vide");
-    it.todo("renvoie un tableau vide si B possède tous les jeux de A");
+    it("renvoie les jeux de A que B ne possède pas", () => {
+
+        const gamesA = [makeGame(1, "Portal"), makeGame(2, "Terraria")];
+        const gamesB = [makeGame(2, "Terraria"), makeGame(3, "Celeste")];
+
+        const result = findMissingGames(gamesA, gamesB);
+
+        expect(result.map(game => game.appid)).toEqual([1]);
+    });
+    it("renvoie toute la liste A si B est vide", () => {
+
+        const gamesA = [makeGame(1, "Portal"), makeGame(2, "Terraria")];
+        const gamesB: SteamOwnedGame[] = [];
+
+        const result = findMissingGames(gamesA, gamesB);
+
+        expect(result.map(game => game.appid)).toEqual([1,2]);
+    });
+    it("renvoie un tableau vide si B possède tous les jeux de A", () => {
+        const gamesA = [makeGame(1, "Portal"), makeGame(2, "Terraria")];
+        const gamesB = [makeGame(1, "Portal"), makeGame(2, "Terraria"), makeGame(3, "Celeste")];
+
+        const result = findMissingGames(gamesA, gamesB);
+
+        expect(result.map(game => game.appid)).toEqual([]);
+    });
 });
