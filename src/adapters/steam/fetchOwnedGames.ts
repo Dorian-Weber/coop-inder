@@ -28,6 +28,6 @@ export async function fetchOwnedGames(steamId: string): Promise<SteamOwnedGame[]
     return data.response.games ?? [];
 }
 
-// Test temporaire, à supprimer ensuite
+// tests temporaire, à supprimer ensuite
 const games = await fetchOwnedGames("76561198931810188");
 console.log(`${games.length} jeux trouvés`);
