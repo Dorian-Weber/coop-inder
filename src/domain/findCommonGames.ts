@@ -1,12 +1,11 @@
 import type {Game} from "./game";
+import {filterGamesByIds} from "./filterGamesByIds";
 
 export function findCommonGames(
     gamesA : Game[],
     gamesB : Game[],
 ): Game[] {
-    return gamesA.filter(game =>
-                gamesB.some(other =>
-                    other.id === game.id))
+    return filterGamesByIds(gamesA, gamesB.map(game => game.id));
 }
 
 export function findMissingGames(
