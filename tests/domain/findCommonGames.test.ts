@@ -1,11 +1,8 @@
 import {describe, it, expect} from "vitest";
 import {findCommonGames, findMissingGames } from "../../src/domain/findCommonGames";
 import type {Game} from "../../src/domain/game";
+import {makeGame} from "../helpers/makeGame"
 
-// fonction utilitaire pour fabriquer un faux jeu sans tout réécrire
-function makeGame(id: number, name: string): Game {
-    return {id: String(id), name};
-}
 
 describe("findCommonGames", () => {
     it("renvoie les jeux présents dans les deux bibliothèques", () => {
