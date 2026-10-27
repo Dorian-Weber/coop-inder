@@ -15,3 +15,16 @@ export interface GetOwnedGamesResponse {
         games?: SteamOwnedGame[];    // absent si la bibliothèque est privée
     };
 }
+
+// Un élément de IWishlistService/GetWishlist
+export interface SteamWishlistItem {
+    appid: number;
+    priority: number;      // ton classement dans la wishlist (0 = non classé)
+    date_added: number;    // secondes Unix
+}
+
+export interface GetWishlistResponse {
+    response: {
+        items?: SteamWishlistItem[];   // absent si la wishlist est privée ou vide
+    };
+}
