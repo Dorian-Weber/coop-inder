@@ -37,9 +37,28 @@ describe("toGameDetails", () => {
     });
 
     // Multijoueur
-    it.todo("indique multijoueur si une catégorie multijoueur ou coop est présente");
-    it.todo("indique solo si aucune catégorie multijoueur n'est présente");
-    it.todo("indique solo si les catégories sont absentes");
+    it("indique multijoueur si une catégorie multijoueur ou coop est présente", () => {
+        const data = makeSteamAppData({ categories: [
+                    { id: 2, description: "Solo" },
+                    { id: 9, description: "Coop" },
+                ]});
+        const result = toGameDetails("570", data)
+
+        expect(result.isMultiplayer).toBe(true);
+    });
+    it("indique solo si aucune catégorie multijoueur n'est présente", () => {
+        const data = makeSteamAppData();
+        const result = toGameDetails('570', data)
+
+        expect(result.isMultiplayer).toBe(false);
+    });
+
+    it("indique solo si les catégories sont absentes", () => {
+        const { categories: _, ...data } = makeSteamAppData();
+        const result = toGameDetails("570", data)
+
+        expect(result.isMultiplayer).toBe(false);
+    });
 
     // Genres
     it.todo("renvoie les noms des genres");
