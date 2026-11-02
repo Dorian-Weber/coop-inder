@@ -1,5 +1,4 @@
 import { fetchOwnedGames } from "./adapters/steam/fetchOwnedGames";
-import { findCommonGames } from "./domain/findCommonGames";
 import {fetchWishlist} from "./adapters/steam/fetchWishlist";
 import {compareProfiles, type Profile} from "./domain/comparaison";
 import type {Game} from "./domain/game";
@@ -36,7 +35,7 @@ function printGames(title: string, games: Game[]): void {
 
 // afficher le nombre de jeux en commun, puis leurs noms
 
-printGames( "Jeux posséder en commun", result.commonGames);
+printGames( "Jeux possédés en commun", result.commonGames);
 printGames( "A possède des jeux de la wishlist de B ", result.ownedByAWishedByB);
 printGames( "B possède des jeux de la wishlist de A ", result.ownedByBWishedByA);
 const shared = result.sharedWishlist;
