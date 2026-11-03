@@ -29,5 +29,3 @@ export async function fetchGameDetails(appid: string): Promise<GameDetails | und
     }
     return toGameDetails(appid, entry.data); // ici, TypeScript sait que entry.data existe
 }
-console.log(await fetchGameDetails("1091500"));
-console.log(await fetchGameDetails("1"));
